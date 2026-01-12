@@ -1,6 +1,6 @@
 {
   "app": {
-    "bundleName": "com.hmosdemos.ponggame",
+    "bundleName": "com.hmosdemos.lite_wearable.sportwatch_pong_game",
     "vendor": "hmosdemos",
     "version": {
       "code": 1000000,

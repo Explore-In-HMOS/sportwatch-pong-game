@@ -7,7 +7,7 @@ export default {
         canvasHeight: GAME_CONFIG.CANVAS_HEIGHT,
         canvasWidth: GAME_CONFIG.CANVAS_WIDTH,
         gameController: null,
-        gameRenderer: null,
+        gameRenderer: null
     },
     onShow() {
         const el = this.$refs.gameCanvas;

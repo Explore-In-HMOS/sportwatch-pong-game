@@ -1,32 +1,29 @@
 import { GAME_CONFIG } from './constants';
 
-export var GameStatus;
-(function (GameStatus) {
-    GameStatus[GameStatus["playing"] = 0] = "playing";
-    GameStatus[GameStatus["paused"] = 1] = "paused";
-    GameStatus[GameStatus["stopped"] = 2] = "stopped";
-})(GameStatus || (GameStatus = {}));
+const GAME_PLAYING = 0;
+const GAME_PAUSED = 1;
+const GAME_STOPPED = 2;
 
 export class GameController {
     constructor(gameRenderer) {
         this._timer = 0;
-        this._gameStatus = GameStatus.playing;
+        this._gameStatus = GAME_PLAYING;
         this._player = {
             x: GAME_CONFIG.INITIAL_PLAYER_POS_X,
             lastTouchX: 0,
-            score: 0,
+            score: 0
         };
         this._computer = {
             x: 0,
             speed: GAME_CONFIG.INITIAL_COMPUTER_SPEED,
-            score: 0,
+            score: 0
         };
         this._ball = {
             x: GAME_CONFIG.CANVAS_WIDTH / 2,
             y: GAME_CONFIG.CANVAS_HEIGHT / 2,
             vx: 0,
             vy: 0,
-            speed: GAME_CONFIG.INITIAL_BALL_SPEED,
+            speed: GAME_CONFIG.INITIAL_BALL_SPEED
         };
         this._gameRenderer = gameRenderer;
     }
@@ -66,25 +63,25 @@ export class GameController {
         this.resetGame();
         clearInterval(this._timer);
         this._timer = 0;
-        this._gameStatus = GameStatus.stopped;
+        this._gameStatus = GAME_STOPPED;
     }
 
     pauseGame() {
         clearInterval(this._timer);
         this._timer = 0;
-        this._gameStatus = GameStatus.paused;
+        this._gameStatus = GAME_PAUSED;
     }
 
     startGame() {
         this.stopGame();
         this._timer = setInterval(() => this.update(), 16); // 16 fps
-        this._gameStatus = GameStatus.playing;
+        this._gameStatus = GAME_PLAYING;
     }
 
     resetGame() {
         this._player.score = 0;
         this._computer.score = 0;
-        this._gameStatus = GameStatus.stopped;
+        this._gameStatus = GAME_STOPPED;
     }
 
     resetPositions() {
@@ -122,7 +119,7 @@ export class GameController {
         }
         let computerCenter = this._computer.x + GAME_CONFIG.PADDLE_WIDTH / 2;
         let ballCenter = this._ball.x + GAME_CONFIG.BALL_SIZE / 2;
-        // check collision with top wall (_computer side) and increase _player score
+        // check collision with top wall computer side and increase player score
         if (this._ball.y - GAME_CONFIG.BALL_SIZE < 0) {
             // check _computer paddle collision with _ball
             if (this._computer.x <= this._ball.x &&
@@ -135,7 +132,7 @@ export class GameController {
                 this._ball.vy = Math.abs(this._ball.vy);
             }
         }
-        // check collision with bottom wall (_player side) and increase _computer score
+        // check collision with bottom wall player side and increase computer score
         if (this._ball.y + GAME_CONFIG.BALL_SIZE + 0.5 >= GAME_CONFIG.CANVAS_HEIGHT) {
             // check _player paddle collision with _ball
             let playerCenter = this._player.x + GAME_CONFIG.PADDLE_WIDTH / 2;

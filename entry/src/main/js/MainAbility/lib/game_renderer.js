@@ -1,5 +1,4 @@
 import { GAME_CONFIG } from './constants';
-import { GameStatus } from './game_controller';
 
 export class GameRenderer {
     constructor(context) {
